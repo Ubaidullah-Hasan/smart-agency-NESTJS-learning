@@ -4,7 +4,6 @@ import { CreateProductDto } from './dto/create-product.dto';
 @Injectable()
 export class ProductService {
   private products: (CreateProductDto & { id: number })[] = [];
-  // : Array<CreateProductDto & { id: number } >
 
   createProduct(productData: CreateProductDto) {
     const newProduct = {
@@ -16,11 +15,11 @@ export class ProductService {
   }
 
   getAllProducts(): (CreateProductDto & { id: number })[] {
-    return this.products;
+    return this.products || [];
   }
 
   findOneProduct(id: number) {
-    return this.products.find((p) => p.id === id);
+    return this.products.find((p) => p.id === id) || null;
   }
 
   updateProduct(id: number, data: CreateProductDto) {
@@ -37,5 +36,4 @@ export class ProductService {
     this.products = this.products.filter((p) => p.id !== id);
     return { message: 'Deleted' };
   }
-
 }
